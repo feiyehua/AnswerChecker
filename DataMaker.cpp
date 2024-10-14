@@ -48,6 +48,7 @@ void makeData(int i)
 }
 int main(int argc,char *argv[])
 {
+    system("mkdir ../Data");
     for(int i=1;i<=100;i++)
     {
         makeData(i);
