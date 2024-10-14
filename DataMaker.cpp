@@ -1,7 +1,7 @@
 /*** 
  * @Author       : FeiYehua
  * @Date         : 2024-10-14 10:07:58
- * @LastEditTime : 2024-10-14 10:14:27
+ * @LastEditTime : 2024-10-14 11:17:22
  * @LastEditors  : FeiYehua
  * @Description  : 
  * @FilePath     : DataMaker.cpp
@@ -10,12 +10,17 @@
 #include<iostream>
 #include<ctime>
 #include<cstdlib>
+#include<string>
+#include<cstring>
 using namespace std;
 bool used[105];
-int main(int argc,char *argv[])
+void makeData(int i)
 {
-    freopen(argv[1],"w",stdout);
-    srand(time(NULL));
+    memset(used,0,sizeof(used));
+    string fileNameAndPath="../Data/";
+    fileNameAndPath=fileNameAndPath+to_string(i)+".in";
+    freopen(fileNameAndPath.c_str(),"w",stdout);
+    srand(time(NULL)+rand());
     int n=rand()%10+1;
     cout<<n<<endl;
     for(int i=1;i<=n;i++)
@@ -39,6 +44,13 @@ int main(int argc,char *argv[])
         used[tmp]=1;
         cout<<tmp<<" ";
     }
-    cout<<endl<<rand()%n;
+    cout<<endl<<(rand()%(n-1))+1;
+}
+int main(int argc,char *argv[])
+{
+    for(int i=1;i<=100;i++)
+    {
+        makeData(i);
+    }
     return 0;
 }

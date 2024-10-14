@@ -1,7 +1,7 @@
 /*** 
  * @Author       : FeiYehua
  * @Date         : 2024-10-13 23:03:25
- * @LastEditTime : 2024-10-14 10:03:01
+ * @LastEditTime : 2024-10-14 11:29:45
  * @LastEditors  : FeiYehua
  * @Description  : 
  * @FilePath     : WhoToWin.cpp
@@ -74,8 +74,9 @@ int main()
 #endif
 
 int WHU[105],HUST[105];
+int WHU1[105],HUST1[105];
 int n,k;
-int getMaxNumberOfLose()
+int getHUSTMaxNumberOfLose()
 {
     int count=0;
     int j=0;
@@ -99,8 +100,33 @@ int getMaxNumberOfLose()
     }
     return count;
 }
-int main()
+int getWHUMaxNumberOfLose()
 {
+    int count=0;
+    int j=0;
+    for(int i=1;i<=100;i++)
+    {
+        while(WHU1[i]!=0)
+        {
+            j=max(i+1,j);
+            while(HUST1[j]==0)
+            {
+                j++;
+                if(j>=101)
+                {
+                    return count;
+                }
+            }
+            HUST1[j]--;
+            count++;
+            WHU1[i]--;
+        }
+    }
+    return count;
+}
+int main(int argc,char *argv[])
+{
+    freopen(argv[1],"r",stdin);
     cin>>n;
     for(int i=1;i<=n;i++)
     {
@@ -114,14 +140,16 @@ int main()
         cin>>power;
         HUST[power]++;
     }
+    copy(HUST,HUST+104,HUST1);
+    copy(WHU,WHU+104,WHU1);
     cin>>k;
-    if(getMaxNumberOfLose()<k)
+    if(getHUSTMaxNumberOfLose()<k)
     {
         cout<<"Normal";
     }
     else
     {
-        if(k<n-k)
+        if(k<n-k&&getWHUMaxNumberOfLose()>n/2)
         {
             cout<<"HUST!";
         }
